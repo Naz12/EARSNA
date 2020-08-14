@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "916743922945",
+    "firebase_url": "https://earsna-5d6f3.firebaseio.com",
+    "project_id": "earsna-5d6f3",
+    "storage_bucket": "earsna-5d6f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916743922945:android:70cdbbbc9f19a6586ce700",
+        "android_client_info": {
+          "package_name": "com.example.earsna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916743922945-iv0lou6hsjc4qg6ngvhp9ni31shqipqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcZdR3HT3e3v_wPPvKqNMIEcDGM7dyNBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916743922945-iv0lou6hsjc4qg6ngvhp9ni31shqipqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
