@@ -22,6 +22,9 @@ class OnboardingActivity : AppCompatActivity() {
         var isUserRegisterd = preferenceHelper.getBoolean("REGISTERED" , false)
 
         if(isUserRegisterd)  findNavController(R.id.onboarding_nav_host_fragment).navigate(R.id.loginFragment)
-        else findNavController(R.id.onboarding_nav_host_fragment).navigate(R.id.registrationFragment)
+        else findNavController(R.id.onboarding_nav_host_fragment).navigate(R.id.loginFragment)
+    }
+    override fun onBackPressed() {
+        moveTaskToBack(true) // exist app
     }
 }

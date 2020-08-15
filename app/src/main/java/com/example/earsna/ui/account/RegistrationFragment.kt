@@ -17,6 +17,7 @@ import com.example.earsna.model.User
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_registration.*
 
 
 class RegistrationFragment : Fragment() {
@@ -50,6 +51,9 @@ class RegistrationFragment : Fragment() {
             var userInfo = User(firstName, lastName, email, password, phoneNumber , 0 , country , city)
             accountViewmodel.user = userInfo
             findNavController().navigate(R.id.verifyPhoneFragment)
+        }
+        go_to_signin_textview.setOnClickListener {
+            findNavController().navigate(R.id.loginFragment)
         }
     }
 
