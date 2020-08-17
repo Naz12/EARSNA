@@ -1,7 +1,6 @@
 package com.example.earsna.ui.account
 
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +10,14 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.preference.Preference
 import com.example.earsna.AuthState
 import com.example.earsna.MainActivity
 import com.example.earsna.R
 import com.example.earsna.databinding.LoginFragmentBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.example.earsna.util.PreferenceHelper
+import com.example.earsna.util.PreferenceHelper.set
+import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : Fragment() {
 
@@ -29,10 +31,15 @@ class LoginFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        countryCodePicker.registerCarrierNumberEditText(binding.phoneNumberEditText)
         viewModel.accountState.observe(viewLifecycleOwner, Observer { state ->
             when (state) {
                 is AuthState.LoggedinState -> {
                     binding.progressBar2.visibility = View.GONE
+                    var preference = PreferenceHelper.getInstance(requireContext())
+                    preference["USER_ROLE"] = state.fullUserInfo!!.role!!
+                    preference["USER_NAME"] = state.fullUserInfo!!.first_name!!
+                    preference["PHONE_NUMBBER"] = state.fullUserInfo!!.phone_number!!
                     var intent = Intent(requireContext() , MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -41,10 +48,10 @@ class LoginFragment : Fragment() {
         })
 
         binding.loginBtn.setOnClickListener {
-            var email = binding.emailEditText.text.toString()
+            var phoneNumber = countryCodePicker.fullNumberWithPlus
             var password = binding.passwordEditTextview.text.toString()
             binding.progressBar2.visibility = View.VISIBLE
-            viewModel.authenticateWithEmail(email , password)
+            viewModel.getUserByPhoneNumberAndAuthenticate(phoneNumber , password)
         }
 
         binding.forgotPasswordBtn.setOnClickListener {

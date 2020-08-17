@@ -12,33 +12,44 @@
         android:layout_height="match_parent"
         tools:context=".ui.account.LoginFragment">
 
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/countryCodePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:ccp_defaultNameCode="SA"
+            app:ccp_showFlag="false"
+            app:layout_constraintBottom_toTopOf="@+id/password_text_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/phone_number_text_input" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_text_input"
+            android:id="@+id/phone_number_text_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/countryCodePicker"
             app:layout_constraintTop_toBottomOf="@+id/text_title">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_edit_text"
+                android:id="@+id/phone_number_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter email or phone number"
-                android:inputType="textEmailAddress" />
+                android:hint="Enter phone number"
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_text_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/email_text_input"
-            app:layout_constraintStart_toStartOf="@+id/email_text_input"
-            app:layout_constraintTop_toBottomOf="@+id/email_text_input">
+            app:layout_constraintEnd_toEndOf="@+id/phone_number_text_input"
+            app:layout_constraintStart_toStartOf="@+id/countryCodePicker"
+            app:layout_constraintTop_toBottomOf="@+id/phone_number_text_input">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_edit_textview"

@@ -5,22 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.earsna.AuthState
 import com.example.earsna.R
 import com.example.earsna.databinding.FragmentRegistrationBinding
 import com.example.earsna.model.User
-import com.google.firebase.firestore.FirebaseFirestore
-import dagger.hilt.EntryPoint
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_registration.*
 
 
 class RegistrationFragment : Fragment() {
+
 
     lateinit var binding: FragmentRegistrationBinding
 
@@ -38,7 +31,7 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.countryCodePicker.registerCarrierNumberEditText(binding.phoneNumberEditText)
+        binding.countryCodePicker.registerCarrierNumberEditText(binding.registrationPhoneNumberEditText)
         binding.registerBtn.setOnClickListener {
             var email = binding.emailEditText.text.toString()
             var password = binding.passwordEditText.text.toString()
@@ -48,12 +41,9 @@ class RegistrationFragment : Fragment() {
             var country = binding.countryEditText.text.toString()
             var city = binding.cityEditText.text.toString()
 
-            var userInfo = User(firstName, lastName, email, password, phoneNumber , 0 , country , city)
+            var userInfo = User( firstName, lastName, email, password, phoneNumber , 0 , country , city)
             accountViewmodel.user = userInfo
             findNavController().navigate(R.id.verifyPhoneFragment)
-        }
-        go_to_signin_textview.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment)
         }
     }
 

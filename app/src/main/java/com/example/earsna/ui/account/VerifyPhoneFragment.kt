@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.earsna.AuthState
@@ -18,8 +18,6 @@ import com.example.earsna.R
 import com.example.earsna.databinding.FragmentVerifyPhoneBinding
 import com.example.earsna.util.PreferenceHelper
 import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,6 +28,7 @@ import com.example.earsna.util.PreferenceHelper.set
 class VerifyPhoneFragment : Fragment() {
 
     val accountViewmodel: AccountViewModel by activityViewModels()
+     lateinit var phoneAuthCredential : PhoneAuthCredential
 
     var code : String? = null
 
@@ -84,13 +83,14 @@ class VerifyPhoneFragment : Fragment() {
                 if(!forgotPassword){
                     //1 create user for authentication
                     accountViewmodel.user?.let {
-                        accountViewmodel.createUser(it.email, it.password)
+                        var email = if(it.email.isNullOrBlank()) "${code}@firebaseemail.com" else it.email!!
+                        accountViewmodel.createUser(email, it.password!! , phoneAuthCredential)
                     }
                 } // else navigation from forgot password fragment ... move to reset password
                 else{
-                    findNavController().navigate(R.id.resetPasswordFragment)
+                    var bundle = bundleOf("AUTH_CRED" to phoneAuthCredential , "PHONE_NUMBER" to phoneNumber)
+                    findNavController().navigate(R.id.resetPasswordFragment , bundle)
                 }
-
             }
             else{
                 Toast.makeText(requireContext(), "Invlid input type", Toast.LENGTH_LONG).show()
@@ -105,9 +105,10 @@ class VerifyPhoneFragment : Fragment() {
         phoneAuthProvider.verifyPhoneNumber(phoneNumber, 60, TimeUnit.SECONDS, requireActivity(),
             object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                 override fun onVerificationCompleted(p0: PhoneAuthCredential) {
+                    code = p0.smsCode
+                    phoneAuthCredential = p0
                     binding.verifyConfirmBtn.isEnabled = true
                     binding.progressBar.visibility = View.GONE
-                    code = p0.smsCode
 
                 }
                 override fun onVerificationFailed(p0: FirebaseException) {
@@ -121,6 +122,8 @@ class VerifyPhoneFragment : Fragment() {
     fun saveUserFullInfo(userIdfromUserCreation: String) {
         accountViewmodel.user?.let {
             var userInfo = hashMapOf(
+                "email" to it.email,
+                "password" to it.password,
                 "user_id" to userIdfromUserCreation,
                 "first_name" to it.first_name,
                 "last_name" to it.last_name,
@@ -130,10 +133,13 @@ class VerifyPhoneFragment : Fragment() {
                 "city" to it.city
             )
             var db = FirebaseFirestore.getInstance()
-            db.collection("users").add(userInfo)
+            db.collection("users").document(userIdfromUserCreation).set(userInfo)
                 .addOnSuccessListener { task ->
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), task.id, Toast.LENGTH_LONG).show()
+                    var preference = PreferenceHelper.getInstance(requireContext())
+                    preference["USER_ROLE"] = it.role ?: 0
+                    preference["USER_NAME"] = it.first_name!!
+                    preference["PHONE_NUMBBER"] = it.phone_number!!
                     var intent = Intent(requireContext() , MainActivity::class.java)
                     startActivity(intent)
                 }

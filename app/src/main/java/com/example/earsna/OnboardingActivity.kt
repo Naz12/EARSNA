@@ -3,7 +3,6 @@ package com.example.earsna
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.earsna.ui.account.AccountViewModel
 import com.example.earsna.util.PreferenceHelper
