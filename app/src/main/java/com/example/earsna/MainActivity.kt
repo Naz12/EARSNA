@@ -111,6 +111,8 @@ class MainActivity : AppCompatActivity() {
                 navView.menu.removeItem(R.id.partener_nav_dashboard)
                 navView.menu.removeItem(R.id.partener_nav_payment)
                 navView.menu.removeItem(R.id.partener_nav_report)
+                navView.menu.removeItem(R.id.partener_nav_service)
+                navView.menu.removeItem(R.id.partener_nav_create_service)
                 navView.menu.removeItem(R.id.nav_booking_list)
 
 
@@ -124,6 +126,8 @@ class MainActivity : AppCompatActivity() {
                 navView.menu.removeItem(R.id.partener_nav_dashboard)
                 navView.menu.removeItem(R.id.partener_nav_payment)
                 navView.menu.removeItem(R.id.partener_nav_report)
+                navView.menu.removeItem(R.id.partener_nav_service)
+                navView.menu.removeItem(R.id.partener_nav_create_service)
                 navView.menu.removeItem(R.id.admin_nav_dashboard)
 
                 var customerGraph = navController.navInflater.inflate(R.navigation.main_navigation)

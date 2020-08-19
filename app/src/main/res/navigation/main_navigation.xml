@@ -37,4 +37,13 @@
         android:name="com.example.earsna.ui.user.UserHomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/user_home_fragment" />
+    <fragment
+        android:id="@+id/partener_nav_service"
+        android:name="com.example.earsna.ui.service.ServiceFragment"
+        android:label="Service"
+        tools:layout="@layout/_fragment" />
+    <fragment
+        android:id="@+id/partener_nav_create_service"
+        android:name="com.example.earsna.ui.service.ServiceCreateFragment"
+        android:label="Create Service" />
 </navigation>

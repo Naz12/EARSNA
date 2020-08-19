@@ -13,13 +13,17 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Dashboard" />
         <item
-            android:id="@+id/partener_nav_report"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Report" />
-        <item
             android:id="@+id/partener_nav_payment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Payment" />
+        <item
+            android:id="@+id/partener_nav_service"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Services" />
+        <item
+            android:id="@+id/partener_nav_create_service"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Create Service" />
         <item
             android:id="@+id/nav_booking_list"
             android:icon="@drawable/common_google_signin_btn_icon_disabled"
@@ -30,5 +34,9 @@
             android:id="@+id/user_nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="Home" />
+        <item
+            android:id="@+id/partener_nav_report"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Report" />
     </group>
 </menu>
